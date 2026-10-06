@@ -1,0 +1,244 @@
+/* =========================================================================
+   FASCINOSA — Custom Stylesheet (shared across index / login / member)
+   ========================================================================= */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f9f9f9;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Editorial helpers (landing page) ---- */
+.font-editorial {
+  font-family: 'Bodoni Moda', Georgia, serif;
+}
+
+.hairline-border {
+  border-color: #e5e5e5;
+}
+
+.editorial-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .editorial-img {
+  transform: scale(1.035);
+}
+
+/* Fixed header offset for in-page anchors */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* =========================================================================
+   NAVBAR AUTH STATE (anti-flash, dikontrol class .is-member di <html>)
+   ========================================================================= */
+html.is-member [data-auth-visible="guest"] {
+  display: none !important;
+}
+
+html:not(.is-member) [data-auth-visible="member"] {
+  display: none !important;
+}
+
+/* =========================================================================
+   MODAL
+   ========================================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-panel {
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.is-open .modal-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.modal-scroll {
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+/* =========================================================================
+   TOAST
+   ========================================================================= */
+.fsc-toast-wrap {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  max-width: calc(100vw - 2rem);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .fsc-toast-wrap {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+}
+
+.fsc-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 24rem;
+  padding: 0.875rem 1.125rem;
+  background: #111111;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.fsc-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fsc-toast__icon {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.fsc-toast--success {
+  border-left-color: #34d399;
+}
+
+.fsc-toast--error {
+  border-left-color: #f87171;
+}
+
+.fsc-toast--info {
+  border-left-color: #facc15;
+}
+
+/* =========================================================================
+   MICRO INTERACTIONS
+   ========================================================================= */
+@keyframes fsc-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.fsc-shake {
+  animation: fsc-shake 0.42s ease;
+}
+
+@keyframes fsc-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fsc-fade-up {
+  animation: fsc-fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Collection filter (landing page) */
+.product-card.is-hidden {
+  display: none;
+}
+
+.filter-tab {
+  transition: all 0.25s ease;
+}
+
+.filter-tab.is-active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+/* Custom scrollbar for modal bodies */
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+}
+
+/* Form fields shared by login + register + edit profile */
+.fsc-field {
+  width: 100%;
+  background: #f3f3f3;
+  padding: 0.875rem 1rem;
+  font-size: 14px;
+  line-height: 24px;
+  color: #1a1c1c;
+  outline: none;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.fsc-field::placeholder {
+  color: rgba(68, 71, 72, 0.45);
+  font-weight: 300;
+}
+
+.fsc-field:focus {
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 0 0 1px #000000;
+}
+
+/* Checkbox "Ingat sesi" — pastikan centang tetap terlihat */
+input.peer:checked ~ span > svg {
+  opacity: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .modal-panel,
+  .modal-overlay,
+  .fsc-toast,
+  .editorial-img {
+    transition: none !important;
+    animation: none !important;
+  }
+}

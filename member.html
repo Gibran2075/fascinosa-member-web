@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Area — FASCINOSA</title>
+  <meta name="description" content="Member Area Fascinosa — dashboard digital member card, poin belanja, voucher, dan profil." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100..700,0..1,0" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-container": "#e3e2e2",
+            "on-secondary-fixed": "#1b1c1c",
+            "surface-container-high": "#e8e8e8",
+            "tertiary-fixed": "#e6e1df",
+            "inverse-primary": "#c8c6c5",
+            "on-surface-variant": "#444748",
+            "background": "#f9f9f9",
+            "primary-fixed-dim": "#c8c6c5",
+            "on-primary-fixed": "#1c1b1b",
+            "secondary-fixed": "#e3e2e2",
+            "tertiary-container": "#1d1b1a",
+            "surface-dim": "#dadada",
+            "on-primary-fixed-variant": "#474646",
+            "secondary-fixed-dim": "#c7c6c6",
+            "surface-bright": "#f9f9f9",
+            "outline": "#747878",
+            "on-secondary": "#ffffff",
+            "secondary": "#5e5e5e",
+            "on-tertiary-fixed-variant": "#484645",
+            "outline-variant": "#c4c7c7",
+            "on-surface": "#1a1c1c",
+            "surface-container": "#eeeeee",
+            "primary": "#000000",
+            "surface-variant": "#e2e2e2",
+            "primary-fixed": "#e5e2e1",
+            "on-tertiary-container": "#868381",
+            "on-secondary-container": "#646464",
+            "on-error": "#ffffff",
+            "on-primary-container": "#858383",
+            "inverse-surface": "#2f3131",
+            "on-background": "#1a1c1c",
+            "surface": "#f9f9f9",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "primary-container": "#1c1b1b",
+            "tertiary": "#000000",
+            "surface-container-low": "#f3f3f3",
+            "tertiary-fixed-dim": "#cac6c3",
+            "inverse-on-surface": "#f1f1f1",
+            "surface-tint": "#5f5e5e",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed": "#1d1b1a",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#464747",
+            "surface-container-highest": "#e2e2e2",
+            "error-container": "#ffdad6"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          spacing: {
+            "space-md": "1rem", "margin": "4rem", "space-xs": "0.25rem", "space-xl": "4rem",
+            "space-lg": "2rem", "gutter": "2rem", "gutter-mobile": "1rem", "space-sm": "0.5rem",
+            "margin-mobile": "1.5rem"
+          },
+          fontFamily: {
+            "headline-lg": ["Bodoni Moda"], "headline-lg-mobile": ["Bodoni Moda"],
+            "headline-md": ["Bodoni Moda"], "headline-md-mobile": ["Bodoni Moda"],
+            "headline-sm": ["Bodoni Moda"], "display-xl": ["Bodoni Moda"],
+            "display-xl-mobile": ["Bodoni Moda"], "title-md": ["Inter"], "label-caps": ["Inter"],
+            "label-meta": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"]
+          },
+          fontSize: {
+            "display-xl": ["72px", { lineHeight: "80px", letterSpacing: "-0.02em", fontWeight: "400" }],
+            "display-xl-mobile": ["40px", { lineHeight: "48px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-lg": ["44px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-lg-mobile": ["30px", { lineHeight: "38px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-md": ["32px", { lineHeight: "40px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-md-mobile": ["24px", { lineHeight: "32px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-sm": ["22px", { lineHeight: "30px", letterSpacing: "0.01em", fontWeight: "400" }],
+            "title-md": ["16px", { lineHeight: "24px", letterSpacing: "0.04em", fontWeight: "500" }],
+            "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.14em", fontWeight: "500" }],
+            "label-meta": ["10px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "400" }],
+            "body-lg": ["16px", { lineHeight: "28px", letterSpacing: "0.01em", fontWeight: "300" }],
+            "body-md": ["14px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "300" }],
+            "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/custom.css" />
+</head>
+
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased" data-page="member">
+
+  <!-- ROUTE GUARD: hanya member yang login yang boleh mengakses halaman ini -->
+  <script>
+    (function () {
+      try {
+        var loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        var session = localStorage.getItem('fascinosa_session');
+        if (!loggedIn || !session) {
+          window.location.replace('login.html');
+        }
+      } catch (e) {
+        window.location.replace('login.html');
+      }
+    })();
+  </script>
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-high">
+    <div class="h-20 w-full px-margin-mobile lg:px-margin flex items-center justify-between">
+      <div class="flex items-center gap-space-lg">
+        <a href="index.html" class="flex items-center gap-space-xs">
+          <span class="font-headline-sm text-headline-sm tracking-[0.2em] text-primary uppercase">FASCINOSA</span>
+          <span class="text-outline-variant font-body-sm text-body-sm px-space-xs">|</span>
+          <span class="font-label-caps text-label-caps tracking-[0.25em] text-on-surface-variant uppercase">MEMBER AREA</span>
+        </a>
+        <nav class="hidden xl:flex items-center gap-space-lg ml-space-lg">
+          <a href="#" aria-current="page" class="font-label-caps text-label-caps tracking-[0.14em] uppercase transition-colors text-primary border-b border-primary pb-1">Dashboard</a>
+          <a href="#" data-demo="Halaman Riwayat Belanja belum tersedia pada demo ini." class="font-label-caps text-label-caps tracking-[0.14em] text-on-surface-variant hover:text-on-surface uppercase transition-colors">Riwayat Belanja</a>
+          <a href="#" data-demo="Halaman Voucher Saya belum tersedia pada demo ini." class="font-label-caps text-label-caps tracking-[0.14em] text-on-surface-variant hover:text-on-surface uppercase transition-colors">Voucher Saya</a>
+          <a href="#" data-demo="Halaman Pengaturan belum tersedia pada demo ini." class="font-label-caps text-label-caps tracking-[0.14em] text-on-surface-variant hover:text-on-surface uppercase transition-colors">Pengaturan</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-space-md lg:gap-space-lg">
+        <div class="hidden sm:flex flex-col text-right">
+          <span class="font-label-meta text-label-meta tracking-[0.1em] text-on-surface-variant uppercase">Private Member</span>
+          <span id="hdrUserName" class="font-title-md text-title-md text-on-surface font-medium">Halo, Sinta Putri 👋</span>
+        </div>
+        <div class="h-8 w-px bg-surface-container-high hidden sm:block"></div>
+        <button aria-label="Notifikasi" data-demo="Tidak ada notifikasi baru." class="p-space-xs text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" type="button">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+        </button>
+        <button data-logout type="button" class="hidden md:inline-flex font-label-caps text-label-caps uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all">
+          Logout
+        </button>
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-20 bg-background min-h-screen">
+    <div class="flex flex-col w-full">
+      <div class="w-full px-margin-mobile lg:px-margin py-space-lg lg:py-space-xl flex flex-col gap-space-xl">
+
+        <!-- Top Context & Editorial Welcome -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md border-b border-surface-container-high pb-space-lg">
+          <div class="flex flex-col gap-space-xs">
+            <div class="flex items-center gap-space-sm">
+              <span class="font-label-meta text-label-meta tracking-[0.28em] uppercase text-on-surface-variant">OVERVIEW PRIVILÈGE</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+              <span class="font-label-meta text-label-meta tracking-[0.2em] uppercase text-on-surface-variant/80">ATELIER ARCHIVE N° 084</span>
+            </div>
+            <h1 class="font-headline-lg text-headline-lg-mobile lg:text-headline-lg text-primary tracking-tight font-normal">
+              Selamat Datang Kembali, <span id="welcomeName">Sinta</span>.
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant font-light max-w-xl">
+              Akses fashion pribadi Anda, alokasi reservasi busana adibusana, serta inventaris eksklusif musim Gugur/Dingin 2026.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-space-sm">
+            <div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 bg-surface-container-lowest border border-surface-container-high">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+              <span id="memberSince" class="font-label-meta text-label-meta tracking-[0.16em] uppercase text-on-surface">MEMBER SINCE 2026 • STATUS VERIFIKASI AKTIF</span>
+            </div>
+            <button id="btnSync" class="inline-flex items-center gap-space-xs px-3.5 py-1.5 border border-surface-container-high hover:border-primary transition-colors text-on-surface-variant hover:text-primary" type="button">
+              <span class="material-symbols-outlined text-[16px]">sync</span>
+              <span class="font-label-meta text-label-meta tracking-[0.14em] uppercase">Sinkronisasi Kartu</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Digital Member Card & Atelier Visual Layout -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-stretch">
+          <!-- VIP Luxe Digital Card (7 Columns) -->
+          <div class="xl:col-span-7 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#111111] via-[#161616] to-[#1c1c1c] text-white p-space-lg lg:p-space-xl border border-[#2b2b2b] shadow-2xl min-h-[340px]">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-gradient-to-tr from-white/[0.03] to-white/[0.08] blur-2xl pointer-events-none"></div>
+            <div class="absolute top-0 right-0 p-space-lg opacity-5 pointer-events-none select-none">
+              <span class="font-headline-lg text-[130px] leading-none tracking-tighter">F</span>
+            </div>
+
+            <!-- Card Top Bar -->
+            <div class="relative z-10 flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <span class="font-headline-sm text-headline-sm tracking-[0.28em] uppercase text-white/95">FASCINOSA CLUB</span>
+                <span class="font-label-meta text-label-meta tracking-[0.24em] text-white/50 uppercase">PRIVATE FASHION &amp; MAISON</span>
+              </div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.06] border border-white/10 backdrop-blur-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+                <span class="font-label-meta text-[10px] tracking-[0.22em] text-white uppercase font-medium">● ACTIVE MEMBER</span>
+              </div>
+            </div>
+
+            <!-- Card Center: Member ID -->
+            <div class="relative z-10 my-space-lg flex flex-col gap-1">
+              <div class="font-label-meta text-label-meta tracking-[0.25em] text-white/40 uppercase">DIGITAL PASS IDENTITY</div>
+              <div class="flex items-center gap-3">
+                <span id="cardMemberId" class="font-headline-md text-headline-md tracking-[0.16em] text-transparent bg-clip-text bg-gradient-to-r from-[#F7F4EC] via-[#E2DCBE] to-[#FFFFFF] font-normal drop-shadow-sm">MB-001234</span>
+                <button aria-label="Salin ID Member" class="text-white/40 hover:text-white transition-colors" id="copyIdBtn" type="button">
+                  <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card Bottom Row -->
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-space-md border-t border-white/10 pt-space-md">
+              <div class="flex items-center gap-space-lg">
+                <div class="flex flex-col">
+                  <span class="font-label-meta text-label-meta tracking-[0.2em] text-white/40 uppercase">TITULAIRE / NAME</span>
+                  <span id="cardName" class="font-title-md text-title-md tracking-[0.15em] uppercase text-white font-normal mt-0.5">SINTA PUTRI</span>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="flex flex-col">
+                  <span class="font-label-meta text-label-meta tracking-[0.2em] text-white/40 uppercase">BERGABUNG</span>
+                  <span id="cardJoined" class="font-label-caps text-label-caps tracking-[0.14em] text-white/90 uppercase mt-0.5">03 OKT 2026</span>
+                </div>
+              </div>
+
+              <!-- Tombol Tampilkan QR Code -->
+              <button id="btnShowQr" type="button" class="group flex items-center gap-space-sm bg-black/40 hover:bg-black/70 px-space-sm py-2 border border-white/10 hover:border-white/40 transition-all text-left w-full sm:w-auto justify-center sm:justify-start">
+                <svg class="w-12 h-12 text-white shrink-0" fill="currentColor" viewBox="0 0 100 100" aria-hidden="true">
+                  <rect fill="currentColor" height="30" width="30" x="0" y="0"></rect>
+                  <rect fill="#111111" height="20" width="20" x="5" y="5"></rect>
+                  <rect fill="currentColor" height="10" width="10" x="10" y="10"></rect>
+                  <rect fill="currentColor" height="30" width="30" x="70" y="0"></rect>
+                  <rect fill="#111111" height="20" width="20" x="75" y="5"></rect>
+                  <rect fill="currentColor" height="10" width="10" x="80" y="10"></rect>
+                  <rect fill="currentColor" height="30" width="30" x="0" y="70"></rect>
+                  <rect fill="#111111" height="20" width="20" x="5" y="75"></rect>
+                  <rect fill="currentColor" height="10" width="10" x="10" y="80"></rect>
+                  <rect height="6" width="6" x="36" y="8"></rect>
+                  <rect height="6" width="8" x="46" y="8"></rect>
+                  <rect height="6" width="6" x="58" y="12"></rect>
+                  <rect height="6" width="8" x="8" y="38"></rect>
+                  <rect height="8" width="6" x="20" y="48"></rect>
+                  <rect height="12" width="12" x="36" y="36"></rect>
+                  <rect height="6" width="6" x="52" y="36"></rect>
+                  <rect height="6" width="8" x="62" y="44"></rect>
+                  <rect height="6" width="16" x="76" y="36"></rect>
+                  <rect height="8" width="8" x="84" y="48"></rect>
+                  <rect height="16" width="6" x="36" y="56"></rect>
+                  <rect height="6" width="14" x="48" y="56"></rect>
+                  <rect height="14" width="8" x="68" y="58"></rect>
+                  <rect height="6" width="10" x="82" y="66"></rect>
+                  <rect height="8" width="16" x="38" y="78"></rect>
+                  <rect height="12" width="12" x="60" y="80"></rect>
+                  <rect height="10" width="12" x="80" y="82"></rect>
+                </svg>
+                <span class="flex flex-col">
+                  <span class="font-label-meta text-[9px] tracking-[0.22em] text-white/50 uppercase">PASS CODE</span>
+                  <span class="font-label-meta text-[11px] tracking-[0.14em] text-white uppercase group-hover:text-emerald-300 transition-colors">Tampilkan QR Code →</span>
+                  <span class="font-label-meta text-[8px] tracking-[0.18em] text-emerald-400 uppercase mt-0.5">Scan di Butik / Kasir</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               PHASE 2 — BELUM MASUK DEVELOPMENT
+               Card "ATELIER PRIVILÈGE HIGHLIGHT" disembunyikan sementara.
+               Aktifkan kembali dengan menghapus pembungkus komentar di
+               bawah ini. Catatan: slot 5 kolom di kanan kartu member kini
+               dipakai card Voucher Aktif, jadi saat mengaktifkan kembali
+               pindahkan card voucher ke section Quick Profile & Status
+               Stats agar total kolom tidak melebihi 12.
+               ============================================================ -->
+          <!--
+          <div class="xl:col-span-5 bg-surface-container-lowest border border-surface-container-high p-space-md lg:p-space-lg flex flex-col justify-between relative">
+            <div class="flex items-center justify-between border-b border-surface-container-high pb-space-sm mb-space-sm">
+              <span class="font-label-meta text-label-meta tracking-[0.24em] text-on-surface-variant uppercase">ATELIER PRIVILÈGE HIGHLIGHT</span>
+              <span class="font-label-meta text-label-meta tracking-[0.14em] text-primary uppercase font-medium">REVUE N° 14</span>
+            </div>
+            <div class="grid grid-cols-5 gap-space-md items-center py-space-xs">
+              <div class="col-span-2 relative aspect-[3/4] overflow-hidden bg-surface-container">
+                <img alt="Editorial portrait of high fashion silhouette" class="w-full h-full object-cover grayscale contrast-125 hover:scale-105 transition-transform duration-700"
+                  src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80&auto=format&fit=crop"
+                  onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+                <div class="absolute bottom-2 left-2 px-1.5 py-0.5 bg-black/80 text-[9px] tracking-widest text-white uppercase font-label-meta">FALL '26</div>
+              </div>
+              <div class="col-span-3 flex flex-col gap-space-xs">
+                <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">RESERVASI PRIVATE SUITE</span>
+                <h3 class="font-headline-sm text-headline-sm text-primary leading-tight font-normal">Fitting Fashion Senopati</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant font-light line-clamp-3">
+                  Jadwalkan sesi konsultasi mode dengan Head Stylist Fascinosa dengan champagne complimentary dan kurasi arsip runway personal.
+                </p>
+                <div class="pt-space-xs">
+                  <a href="#" data-demo="Form reservasi akan hadir pada versi produksi." class="inline-flex items-center gap-1 font-label-caps text-label-caps tracking-[0.16em] uppercase text-primary border-b border-primary pb-0.5 hover:text-on-surface-variant transition-colors">
+                    Reservasi Jadwal Konsultasi →
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-surface-container-high pt-space-xs flex items-center justify-between text-on-surface-variant">
+              <span class="font-label-meta text-[10px] tracking-[0.16em] uppercase">Jakarta Flagship Boutique</span>
+              <span class="font-label-meta text-[10px] tracking-[0.14em] uppercase text-primary">By Appointment Only</span>
+            </div>
+          </div>
+          -->
+
+          <!-- Card Voucher Aktif (Phase 1) — dipindah dari section stats
+               ke kolom kanan, mengisi slot 5 kolom di samping card FASCINOSA CLUB -->
+          <div class="xl:col-span-5 bg-surface-container-lowest border border-surface-container-high p-space-lg flex flex-col justify-between gap-space-lg transition-all hover:border-primary/40">
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps tracking-[0.18em] text-on-surface-variant uppercase">Voucher Aktif</span>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">confirmation_number</span>
+              </div>
+              <div class="flex items-baseline gap-space-xs mt-space-xs">
+                <span id="voucherCount" class="font-headline-lg text-headline-lg text-primary tracking-tight font-normal">2</span>
+                <span class="font-title-md text-title-md text-on-surface-variant tracking-[0.12em] uppercase font-light">Voucher Siap Pakai</span>
+              </div>
+              <div id="voucherList" class="flex flex-col gap-2 mt-space-xs"></div>
+            </div>
+            <div class="pt-space-sm border-t border-surface-container">
+              <button id="btnVoucherAll" class="w-full py-3 px-4 border border-primary text-primary font-label-caps text-label-caps tracking-[0.16em] uppercase hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-space-xs" type="button">
+                <span>Lihat Semua Voucher</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Profile & Status Stats -->
+        <!-- ============================================================
+             PHASE 2 — BELUM MASUK DEVELOPMENT
+             Card "Total Poin Belanja" & "Tier Keanggotaan" disembunyikan
+             sementara; Phase 1 hanya menampilkan card "Voucher Aktif",
+             yang dipindah ke sebelah kanan card FASCINOSA CLUB di atas.
+             Aktifkan kembali: hapus pembungkus komentar ini, lalu bungkus
+             kedua box dengan div grid
+             grid-cols-1 md:grid-cols-3 gap-space-lg.
+             ============================================================ -->
+          <!--
+          PHASE 2 (hidden) — Box 1: Total Poin
+          <div class="bg-surface-container-lowest border border-surface-container-high p-space-lg flex flex-col justify-between gap-space-lg transition-all hover:border-primary/40">
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps tracking-[0.18em] text-on-surface-variant uppercase">Total Poin Belanja</span>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">toll</span>
+              </div>
+              <div class="flex items-baseline gap-space-xs mt-space-xs">
+                <span id="statPoints" class="font-headline-lg text-headline-lg text-primary tracking-tight font-normal">1.250</span>
+                <span class="font-title-md text-title-md text-on-surface-variant tracking-[0.12em] uppercase font-light">Pts</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant font-light mt-1">
+                Setara nilai diskon langsung <span id="statDiscount" class="font-medium text-on-surface">Rp 125.000</span> pada transaksi butik maupun daring berikutnya.
+              </p>
+            </div>
+            <div class="pt-space-sm border-t border-surface-container">
+              <button id="btnRedeem" class="w-full py-3 px-6 bg-primary text-on-primary font-label-caps text-label-caps tracking-[0.16em] uppercase hover:bg-neutral-800 transition-colors flex items-center justify-center gap-space-xs" type="button">
+                <span>Tukarkan Poin</span>
+                <span class="text-sm">→</span>
+              </button>
+            </div>
+          </div>
+
+          PHASE 2 (hidden) — Box 2: Tier Keanggotaan
+          <div class="bg-surface-container-lowest border border-surface-container-high p-space-lg flex flex-col justify-between gap-space-lg transition-all hover:border-primary/40">
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps tracking-[0.18em] text-on-surface-variant uppercase">Tier Keanggotaan</span>
+                <span class="material-symbols-outlined text-[20px] text-on-surface-variant">hotel_class</span>
+              </div>
+              <div class="flex items-center gap-2 mt-space-xs">
+                <span id="statTier" class="font-headline-sm text-headline-sm text-primary tracking-wide uppercase font-normal">SILVER MEMBER</span>
+                <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+              </div>
+              <div class="flex flex-col gap-1.5 mt-space-sm">
+                <div class="flex justify-between items-center text-label-meta font-label-meta tracking-[0.14em] uppercase text-on-surface-variant">
+                  <span>Progress Gold Tier</span>
+                  <span id="progressLabel" class="font-medium text-primary">75%</span>
+                </div>
+                <div class="w-full h-1.5 bg-surface-container overflow-hidden">
+                  <div id="progressFill" class="h-full bg-primary transition-all duration-1000" style="width: 75%"></div>
+                </div>
+              </div>
+              <p id="tierRemaining" class="font-body-sm text-body-sm text-on-surface-variant font-light mt-1">
+                Belanja lagi untuk mencapai status Gold Member.
+              </p>
+            </div>
+            <div class="pt-space-sm border-t border-surface-container flex items-center justify-between">
+              <span id="tierEvaluation" class="font-label-meta text-label-meta tracking-[0.14em] text-on-surface-variant uppercase">Evaluasi Tier: 31 Des 2026</span>
+              <a href="#" data-demo="Detail benefit tier Gold & Platinum (demo)." class="font-label-caps text-label-caps tracking-[0.14em] text-primary uppercase border-b border-primary pb-0.5 hover:text-on-surface-variant">Keuntungan Tier →</a>
+            </div>
+          </div>
+
+          -->
+
+
+        <!-- Editorial Promo Banner -->
+        <div class="relative bg-primary text-on-primary p-space-lg lg:p-space-xl overflow-hidden">
+          <div class="absolute inset-0 bg-[linear-gradient(to_right,#222_1px,transparent_1px),linear-gradient(to_bottom,#222_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none"></div>
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+            <div class="lg:col-span-7 flex flex-col gap-space-sm">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 bg-white/10 text-white font-label-meta text-label-meta tracking-[0.2em] uppercase">PRIVATE PRIVILEGE</span>
+                <span class="text-white/40 font-label-meta">•</span>
+                <span class="font-label-meta text-label-meta tracking-[0.16em] text-white/70 uppercase">BERAKHIR DALAM 4 HARI</span>
+              </div>
+              <h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-white font-normal leading-tight">Promo Eksklusif Minggu Ini</h2>
+              <p class="font-body-lg text-body-md lg:text-body-lg text-white/80 font-light max-w-lg">
+                Diskon 20% Koleksi New Arrival khusus Member Silver &amp; Gold. Berlaku untuk seluruh lini Pret-à-Porter dan Aksesori Kulit.
+              </p>
+              <div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+                <div class="flex items-center bg-white/[0.08] border border-white/20 px-4 py-2.5">
+                  <span class="font-label-caps text-label-caps tracking-[0.24em] text-white uppercase font-mono mr-3">KODE: SILVER20VIP</span>
+                  <button class="font-label-meta text-label-meta tracking-[0.14em] uppercase text-white/70 hover:text-white transition-colors border-l border-white/20 pl-3" id="copyVoucherBtn" type="button">Salin Kode</button>
+                </div>
+                <a href="index.html#shop" class="px-7 py-3 bg-white text-primary hover:bg-neutral-200 transition-colors font-label-caps text-label-caps tracking-[0.18em] uppercase flex items-center gap-2">
+                  <span>Belanja Sekarang</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Lookbook snapshots -->
+            <div class="lg:col-span-5 grid grid-cols-2 gap-space-md">
+              <div class="flex flex-col gap-2 group">
+                <div class="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/10 relative">
+                  <img alt="Oversized Trench Coat lookbook" class="w-full h-full object-cover grayscale contrast-110 group-hover:scale-105 transition-transform duration-700"
+                    src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80&auto=format&fit=crop"
+                    onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+                  <span class="absolute top-2 left-2 bg-black/80 px-2 py-0.5 text-[9px] font-label-meta tracking-widest text-white uppercase">NEW IN</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-meta text-label-meta tracking-[0.14em] text-white/60 uppercase">Oversized Trench Coat</span>
+                  <div class="flex items-center gap-2 mt-0.5">
+                    <span class="font-label-caps text-label-caps text-white">Rp 4.850.000</span>
+                    <span class="font-label-meta text-white/40 line-through">Rp 6.062.500</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2 group">
+                <div class="aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/10 relative">
+                  <img alt="The Arc Leather Mini bag" class="w-full h-full object-cover grayscale contrast-110 group-hover:scale-105 transition-transform duration-700"
+                    src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80&auto=format&fit=crop"
+                    onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+                  <span class="absolute top-2 left-2 bg-black/80 px-2 py-0.5 text-[9px] font-label-meta tracking-widest text-white uppercase">LIMITED</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-meta text-label-meta tracking-[0.14em] text-white/60 uppercase">The Arc Leather Mini</span>
+                  <div class="flex items-center gap-2 mt-0.5">
+                    <span class="font-label-caps text-label-caps text-white">Rp 3.600.000</span>
+                    <span class="font-label-meta text-white/40 line-through">Rp 4.500.000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Information Section -->
+        <div class="bg-surface-container-lowest border border-surface-container-high p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md border-b border-surface-container-high pb-space-md">
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-2">
+                <span class="font-label-meta text-label-meta tracking-[0.24em] text-on-surface-variant uppercase">REGISTRE CLIENTÈLE</span>
+                <span class="w-1 h-1 rounded-full bg-primary"></span>
+                <span class="font-label-meta text-label-meta tracking-[0.16em] text-on-surface-variant uppercase">REF. ID #4492-JKT</span>
+              </div>
+              <h2 class="font-headline-md text-headline-md text-primary font-normal">Data Diri Profil</h2>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <button id="btnEditProfile" class="px-5 py-2.5 border border-primary text-primary font-label-caps text-label-caps tracking-[0.16em] uppercase hover:bg-primary hover:text-on-primary transition-colors inline-flex items-center gap-2" type="button">
+                <span class="material-symbols-outlined text-[16px]">edit</span>
+                <span>Edit Profil</span>
+              </button>
+              <button data-logout class="px-5 py-2.5 border border-surface-container-high text-on-surface-variant font-label-caps text-label-caps tracking-[0.16em] uppercase hover:border-error hover:text-error transition-colors inline-flex items-center gap-2" type="button">
+                <span class="material-symbols-outlined text-[16px]">logout</span>
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 5-Field Information Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-space-lg gap-x-space-xl">
+            <div class="flex flex-col gap-1.5 border-b border-surface-container pb-space-sm">
+              <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">Nama Lengkap</span>
+              <div class="flex items-center justify-between">
+                <span id="pfName" class="font-title-md text-title-md text-on-surface font-normal">Sinta Putri</span>
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5 border-b border-surface-container pb-space-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">No. Handphone</span>
+                <span class="inline-flex items-center gap-1 font-label-meta text-[10px] tracking-[0.14em] text-emerald-800 bg-emerald-50 px-2 py-0.5 uppercase">
+                  <span class="material-symbols-outlined text-[12px] text-emerald-700">verified</span>
+                  Terverifikasi
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span id="pfPhone" class="font-title-md text-title-md text-on-surface font-normal">+62 812-3456-7890</span>
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">call</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5 border-b border-surface-container pb-space-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">Email Kontak</span>
+                <span class="font-label-meta text-[10px] tracking-[0.14em] text-on-surface-variant uppercase">Primary</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span id="pfEmail" class="font-title-md text-title-md text-on-surface font-normal">sinta@email.com</span>
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">mail</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5 border-b border-surface-container pb-space-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">Tanggal Lahir</span>
+                <span class="font-label-meta text-[10px] tracking-[0.12em] text-on-surface-variant uppercase">Benefit Ultah Aktif</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span id="pfBirthday" class="font-title-md text-title-md text-on-surface font-normal">14 Oktober 1996</span>
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+              </div>
+            </div>
+
+            <div class="md:col-span-2 flex flex-col gap-1.5 border-b border-surface-container pb-space-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">Alamat Pengiriman Utama (Atelier Express)</span>
+                <span class="font-label-meta text-[10px] tracking-[0.12em] text-primary uppercase font-medium">Default Address</span>
+              </div>
+              <div class="flex items-start justify-between gap-space-md">
+                <span id="pfAddress" class="font-title-md text-title-md text-on-surface font-normal leading-relaxed">
+                  Jl. Senopati No. 42, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190
+                </span>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0 mt-1">location_on</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs text-on-surface-variant">
+            <div class="flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-[16px] text-on-surface-variant">security</span>
+              <span class="font-label-meta text-label-meta tracking-[0.14em] uppercase">Data tersimpan dengan enkripsi standar Fascinosa Private Vault. Terakhir diperbarui 12 Sep 2026.</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="font-label-meta text-label-meta tracking-[0.14em] uppercase">Butuh bantuan data?</span>
+              <a href="#" data-demo="Concierge kami akan menghubungi kamu (demo)." class="font-label-caps text-label-caps tracking-[0.14em] uppercase text-primary border-b border-primary hover:text-on-surface-variant transition-colors">Hubungi Concierge</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Teaser -->
+        <div class="border border-surface-container-high bg-surface-container-lowest p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+          <div class="flex items-center gap-space-md">
+            <div class="w-12 h-12 bg-surface-container flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary text-[24px]">local_mall</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase">Pesanan Terakhir (#FSC-98210)</span>
+              <span class="font-title-md text-title-md text-on-surface">Atelier Wool Wrap Coat — <span class="text-emerald-700 font-medium">Dalam Pengantaran Kurir Pribadi</span></span>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-md w-full md:w-auto justify-end">
+            <a href="#" data-demo="Halaman Riwayat Belanja belum tersedia pada demo ini." class="w-full md:w-auto px-5 py-2.5 border border-surface-container-high hover:border-primary text-on-surface font-label-caps text-label-caps tracking-[0.16em] uppercase text-center transition-colors">
+              Lihat Riwayat Lengkap →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface border-t border-surface-container-high py-space-xl">
+    <div class="w-full px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-md">
+      <div class="flex flex-col md:flex-row items-center gap-space-xs md:gap-space-md">
+        <span class="font-headline-sm text-headline-sm tracking-[0.18em] uppercase text-primary">FASCINOSA</span>
+        <span class="hidden md:inline text-outline-variant font-body-sm text-body-sm">—</span>
+        <p class="font-label-meta text-label-meta tracking-[0.12em] text-on-surface-variant uppercase">© 2026 Fascinosa Archive &amp; Atelier. Seluruh hak cipta dilindungi undang-undang.</p>
+      </div>
+      <div class="flex items-center gap-space-lg">
+        <a href="#" data-demo="Concierge Support (demo)." class="font-label-caps text-label-caps uppercase tracking-[0.16em] text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container-high hover:border-primary pb-0.5">Concierge Support</a>
+        <a href="#" data-demo="Halaman Privasi (demo)." class="font-label-caps text-label-caps uppercase tracking-[0.16em] text-on-surface-variant hover:text-primary transition-colors">Privasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL: QR CODE ===================== -->
+  <div class="modal-overlay" id="modalQr" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-modal></div>
+    <div class="relative z-10 min-h-full flex items-center justify-center p-4">
+      <div class="modal-panel modal-scroll w-full max-w-[380px] bg-white border border-surface-container-high shadow-2xl">
+        <div class="flex items-center justify-between px-6 pt-6 pb-4 border-b border-surface-container-high">
+          <div>
+            <span class="font-label-meta text-label-meta tracking-[0.24em] text-on-surface-variant uppercase block mb-1">Digital Pass</span>
+            <h3 id="qrTitle" class="font-headline-sm text-headline-sm text-primary font-normal">QR Code Member</h3>
+          </div>
+          <button data-close-modal aria-label="Tutup" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+            <span class="material-symbols-outlined text-[22px]">close</span>
+          </button>
+        </div>
+
+        <div class="px-6 py-7 flex flex-col items-center text-center">
+          <div class="p-4 bg-white border border-surface-container-high shadow-sm">
+            <svg class="w-52 h-52 text-black" fill="currentColor" viewBox="0 0 100 100" role="img" aria-label="QR Code dummy">
+              <rect fill="currentColor" height="30" width="30" x="0" y="0"></rect>
+              <rect fill="#ffffff" height="20" width="20" x="5" y="5"></rect>
+              <rect fill="currentColor" height="10" width="10" x="10" y="10"></rect>
+              <rect fill="currentColor" height="30" width="30" x="70" y="0"></rect>
+              <rect fill="#ffffff" height="20" width="20" x="75" y="5"></rect>
+              <rect fill="currentColor" height="10" width="10" x="80" y="10"></rect>
+              <rect fill="currentColor" height="30" width="30" x="0" y="70"></rect>
+              <rect fill="#ffffff" height="20" width="20" x="5" y="75"></rect>
+              <rect fill="currentColor" height="10" width="10" x="10" y="80"></rect>
+              <rect height="6" width="6" x="36" y="8"></rect>
+              <rect height="6" width="8" x="46" y="8"></rect>
+              <rect height="6" width="6" x="58" y="12"></rect>
+              <rect height="6" width="8" x="8" y="38"></rect>
+              <rect height="8" width="6" x="20" y="48"></rect>
+              <rect height="12" width="12" x="36" y="36"></rect>
+              <rect height="6" width="6" x="52" y="36"></rect>
+              <rect height="6" width="8" x="62" y="44"></rect>
+              <rect height="6" width="16" x="76" y="36"></rect>
+              <rect height="8" width="8" x="84" y="48"></rect>
+              <rect height="16" width="6" x="36" y="56"></rect>
+              <rect height="6" width="14" x="48" y="56"></rect>
+              <rect height="14" width="8" x="68" y="58"></rect>
+              <rect height="6" width="10" x="82" y="66"></rect>
+              <rect height="8" width="16" x="38" y="78"></rect>
+              <rect height="12" width="12" x="60" y="80"></rect>
+              <rect height="10" width="12" x="80" y="82"></rect>
+              <rect height="6" width="6" x="46" y="46"></rect>
+              <rect height="6" width="6" x="56" y="66"></rect>
+              <rect height="6" width="6" x="26" y="62"></rect>
+            </svg>
+          </div>
+
+          <p id="qrMemberId" class="font-headline-sm text-headline-sm text-primary tracking-[0.16em] mt-5">MB-001234</p>
+          <p id="qrMemberName" class="font-label-caps text-label-caps tracking-[0.2em] text-on-surface-variant uppercase mt-1">SINTA PUTRI</p>
+
+          <div class="w-full mt-5 pt-4 border-t border-surface-container-high flex items-center justify-center gap-2 text-on-surface-variant">
+            <span class="material-symbols-outlined text-[15px]">verified_user</span>
+            <span class="font-label-meta text-label-meta tracking-[0.14em] uppercase">QR Dummy • Scan di Kasir / Butik</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant font-light mt-3 leading-relaxed">
+            Tunjukkan QR ini kepada kasir untuk verifikasi member dan pembelian poin saat berbelanja.
+          </p>
+        </div>
+
+        <div class="px-6 py-4 border-t border-surface-container-high bg-surface-container-low">
+          <button data-close-modal class="w-full py-3 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-[0.18em] hover:bg-neutral-800 transition-colors" type="button">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: TUKARKAN POIN ===================== -->
+  <div class="modal-overlay" id="modalRedeem" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="redeemTitle">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-modal></div>
+    <div class="relative z-10 min-h-full flex items-center justify-center p-4">
+      <div class="modal-panel modal-scroll w-full max-w-[560px] bg-white border border-surface-container-high shadow-2xl">
+        <div class="flex items-start justify-between px-6 pt-6 pb-4 border-b border-surface-container-high">
+          <div>
+            <span class="font-label-meta text-label-meta tracking-[0.24em] text-on-surface-variant uppercase block mb-1">Redeem Rewards</span>
+            <h3 id="redeemTitle" class="font-headline-sm text-headline-sm text-primary font-normal">Tukarkan Poin Kamu</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant font-light mt-1">
+              Saldo: <span id="redeemBalance" class="font-medium text-on-surface">1.250 Pts</span>
+            </p>
+          </div>
+          <button data-close-modal aria-label="Tutup" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+            <span class="material-symbols-outlined text-[22px]">close</span>
+          </button>
+        </div>
+
+        <div id="redeemList" class="px-6 py-5 flex flex-col gap-3"></div>
+
+        <div class="px-6 py-4 border-t border-surface-container-high bg-surface-container-low flex items-center justify-between">
+          <span class="font-label-meta text-label-meta tracking-[0.14em] text-on-surface-variant uppercase">10 Poin = Rp 10.000 Diskon</span>
+          <button data-close-modal class="font-label-caps text-label-caps tracking-[0.16em] uppercase text-primary border-b border-primary pb-0.5 hover:text-on-surface-variant transition-colors" type="button">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: EDIT PROFIL ===================== -->
+  <div class="modal-overlay" id="modalEdit" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-modal></div>
+    <div class="relative z-10 min-h-full flex items-center justify-center p-4">
+      <div class="modal-panel modal-scroll w-full max-w-[460px] bg-white border border-surface-container-high shadow-2xl">
+        <div class="flex items-start justify-between px-6 pt-6 pb-4 border-b border-surface-container-high">
+          <div>
+            <span class="font-label-meta text-label-meta tracking-[0.24em] text-on-surface-variant uppercase block mb-1">Update Record</span>
+            <h3 id="editTitle" class="font-headline-sm text-headline-sm text-primary font-normal">Edit Profil</h3>
+          </div>
+          <button data-close-modal aria-label="Tutup" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+            <span class="material-symbols-outlined text-[22px]">close</span>
+          </button>
+        </div>
+
+        <form id="editForm" class="px-6 py-5 space-y-4" novalidate>
+          <div class="space-y-2 text-left">
+            <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="editName">Nama Lengkap</label>
+            <input id="editName" type="text" class="fsc-field" placeholder="Nama lengkap kamu" required />
+          </div>
+          <div class="space-y-2 text-left">
+            <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="editPhone">No. Handphone</label>
+            <input id="editPhone" type="tel" class="fsc-field" placeholder="081234567890" required />
+          </div>
+          <div class="space-y-2 text-left">
+            <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="editEmail">Email</label>
+            <input id="editEmail" type="email" class="fsc-field" placeholder="nama@email.com" required />
+          </div>
+          <div class="space-y-2 text-left">
+            <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="editAddress">Alamat Pengiriman</label>
+            <textarea id="editAddress" rows="3" class="fsc-field resize-none" placeholder="Jl. ..., Kota, Kode Pos"></textarea>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="flex-1 py-3.5 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-[0.18em] hover:bg-neutral-800 active:scale-[0.99] transition-all">Simpan Perubahan</button>
+            <button type="button" data-close-modal class="px-5 py-3.5 border border-surface-container-high text-on-surface-variant font-label-caps text-label-caps uppercase tracking-[0.18em] hover:border-primary hover:text-primary transition-colors">Batal</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masuk ke Member Area — FASCINOSA</title>
+  <meta name="description" content="Login Member Area Fascinosa — akses poin belanja, voucher eksklusif, dan digital member card kamu." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100..700,0..1,0" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-container": "#e3e2e2",
+            "on-secondary-fixed": "#1b1c1c",
+            "surface-container-high": "#e8e8e8",
+            "tertiary-fixed": "#e6e1df",
+            "inverse-primary": "#c8c6c5",
+            "on-surface-variant": "#444748",
+            "background": "#f9f9f9",
+            "primary-fixed-dim": "#c8c6c5",
+            "on-primary-fixed": "#1c1b1b",
+            "secondary-fixed": "#e3e2e2",
+            "tertiary-container": "#1d1b1a",
+            "surface-dim": "#dadada",
+            "on-primary-fixed-variant": "#474646",
+            "secondary-fixed-dim": "#c7c6c6",
+            "surface-bright": "#f9f9f9",
+            "outline": "#747878",
+            "on-secondary": "#ffffff",
+            "secondary": "#5e5e5e",
+            "on-tertiary-fixed-variant": "#484645",
+            "outline-variant": "#c4c7c7",
+            "on-surface": "#1a1c1c",
+            "surface-container": "#eeeeee",
+            "primary": "#000000",
+            "surface-variant": "#e2e2e2",
+            "primary-fixed": "#e5e2e1",
+            "on-tertiary-container": "#868381",
+            "on-secondary-container": "#646464",
+            "on-error": "#ffffff",
+            "on-primary-container": "#858383",
+            "inverse-surface": "#2f3131",
+            "on-background": "#1a1c1c",
+            "surface": "#f9f9f9",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "primary-container": "#1c1b1b",
+            "tertiary": "#000000",
+            "surface-container-low": "#f3f3f3",
+            "tertiary-fixed-dim": "#cac6c3",
+            "inverse-on-surface": "#f1f1f1",
+            "surface-tint": "#5f5e5e",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed": "#1d1b1a",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#464747",
+            "surface-container-highest": "#e2e2e2",
+            "error-container": "#ffdad6"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          spacing: {
+            "space-md": "1rem", "margin": "4rem", "space-xs": "0.25rem", "space-xl": "4rem",
+            "space-lg": "2rem", "gutter": "2rem", "gutter-mobile": "1rem", "space-sm": "0.5rem",
+            "margin-mobile": "1.5rem"
+          },
+          fontFamily: {
+            "headline-lg": ["Bodoni Moda"], "headline-lg-mobile": ["Bodoni Moda"],
+            "headline-md": ["Bodoni Moda"], "headline-md-mobile": ["Bodoni Moda"],
+            "headline-sm": ["Bodoni Moda"], "display-xl": ["Bodoni Moda"],
+            "display-xl-mobile": ["Bodoni Moda"], "title-md": ["Inter"], "label-caps": ["Inter"],
+            "label-meta": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"]
+          },
+          fontSize: {
+            "display-xl": ["72px", { lineHeight: "80px", letterSpacing: "-0.02em", fontWeight: "400" }],
+            "display-xl-mobile": ["40px", { lineHeight: "48px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-lg": ["44px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-lg-mobile": ["30px", { lineHeight: "38px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-md": ["32px", { lineHeight: "40px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-md-mobile": ["24px", { lineHeight: "32px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-sm": ["22px", { lineHeight: "30px", letterSpacing: "0.01em", fontWeight: "400" }],
+            "title-md": ["16px", { lineHeight: "24px", letterSpacing: "0.04em", fontWeight: "500" }],
+            "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.14em", fontWeight: "500" }],
+            "label-meta": ["10px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "400" }],
+            "body-lg": ["16px", { lineHeight: "28px", letterSpacing: "0.01em", fontWeight: "300" }],
+            "body-md": ["14px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "300" }],
+            "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/custom.css" />
+  <style>
+    body {
+      overscroll-behavior: none;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col justify-between selection:bg-primary selection:text-on-primary" data-page="login">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.02)]">
+    <div class="h-20 w-full px-gutter-mobile md:px-margin flex items-center justify-between">
+      <div class="w-1/3 flex items-center justify-start">
+        <a href="index.html" class="group inline-flex items-center text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase transition-colors duration-300">
+          <span class="inline-block transition-transform duration-300 group-hover:-translate-x-1 mr-2 text-label-caps">←</span>Kembali ke Beranda
+        </a>
+      </div>
+      <div class="w-1/3 flex items-center justify-center">
+        <a href="index.html" class="font-headline-sm text-headline-sm md:font-headline-md md:text-headline-md tracking-[0.28em] uppercase text-primary text-center select-none">FASCINOSA</a>
+      </div>
+      <div class="w-1/3 flex items-center justify-end">
+        <span class="font-label-meta text-label-meta tracking-[0.2em] text-on-surface-variant uppercase hidden md:inline-block">Atelier Privé</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="w-full flex-1 pt-20 flex flex-col justify-center">
+    <div class="flex flex-col w-full items-center justify-center py-space-xl px-gutter-mobile md:px-margin">
+
+      <div class="w-full max-w-[480px] flex flex-col items-center">
+
+        <!-- Bar sesi aktif (muncul jika sudah login) -->
+        <div id="activeSessionBar" class="hidden w-full mb-5 bg-surface-container-lowest border border-surface-container-high px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-on-surface">account_circle</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Sesi aktif: <span id="activeSessionName" class="font-medium text-on-surface">—</span></span>
+          </div>
+          <a href="member.html" class="font-label-caps text-label-caps uppercase tracking-[0.14em] text-primary border-b border-primary pb-0.5 hover:text-on-surface-variant transition-colors">Buka</a>
+        </div>
+
+        <!-- Top Editorial Indicator -->
+        <div class="flex items-center gap-space-xs mb-space-md opacity-80">
+          <span class="w-1.5 h-1.5 bg-primary inline-block"></span>
+          <span class="font-label-meta text-label-meta tracking-[0.25em] text-on-surface-variant uppercase">Archive Enclave • Session No. 892</span>
+        </div>
+
+        <!-- Main Architectural Card -->
+        <div class="w-full bg-surface-container-lowest p-8 sm:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.03)] relative">
+          <!-- Card Header -->
+          <div class="flex flex-col text-center items-center mb-8">
+            <span class="font-label-caps text-label-caps tracking-[0.22em] text-on-surface-variant uppercase mb-2 block">Membership Access</span>
+            <h1 class="font-headline-md text-headline-md text-primary tracking-tight font-normal mb-3">Masuk ke Member Area</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-[340px] leading-relaxed">
+              Masukkan Nomor HP / Email dan Password akun Fascinosa Anda.
+            </p>
+          </div>
+
+          <!-- Auth Form -->
+          <form class="space-y-6" id="authForm" novalidate>
+            <!-- Field 1: Email / No. Handphone -->
+            <div class="space-y-2 text-left">
+              <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="identifier">Email / No. Handphone</label>
+              <div class="relative bg-surface-container-low transition-colors duration-300 focus-within:bg-surface-container-lowest focus-within:shadow-[0_0_0_1px_#000000]">
+                <input autocomplete="username" class="w-full bg-transparent px-4 py-3.5 text-on-surface text-body-md font-body-md placeholder:text-on-surface-variant/40 placeholder:font-light outline-none" id="identifier" name="identifier" placeholder="Contoh: 08123456789 atau nama@email.com" required type="text" />
+              </div>
+            </div>
+
+            <!-- Field 2: Password -->
+            <div class="space-y-2 text-left">
+              <div class="flex items-center justify-between">
+                <label class="block font-label-caps text-label-caps text-on-surface uppercase tracking-[0.14em]" for="credential">Password</label>
+                <a href="#" data-demo="Fitur lupa password belum aktif pada demo ini." class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline underline-offset-4 decoration-on-surface-variant/30 hover:decoration-primary">Lupa Password?</a>
+              </div>
+              <div class="relative bg-surface-container-low flex items-center transition-colors duration-300 focus-within:bg-surface-container-lowest focus-within:shadow-[0_0_0_1px_#000000]">
+                <input autocomplete="current-password" class="w-full bg-transparent px-4 py-3.5 text-on-surface text-body-md font-body-md placeholder:text-on-surface-variant/40 outline-none tracking-widest" id="credential" name="credential" placeholder="••••••••" required type="password" />
+                <button aria-label="Tampilkan atau sembunyikan kata sandi" class="px-4 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center outline-none" id="toggle-password" type="button">
+                  <span class="material-symbols-outlined text-[18px]" id="eye-icon">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Checkbox: Ingat Saya -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center space-x-3 cursor-pointer group select-none">
+                <input class="peer sr-only" id="remember-me" type="checkbox" checked />
+                <span class="w-4 h-4 bg-surface-container-high peer-checked:bg-primary flex items-center justify-center transition-all duration-200">
+                  <svg class="w-2.5 h-2.5 text-on-primary opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"></path>
+                  </svg>
+                </span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">Ingat sesi di perangkat ini</span>
+              </label>
+            </div>
+
+            <!-- Primary Action -->
+            <div class="pt-2">
+              <button class="w-full bg-primary text-on-primary py-4 px-8 font-label-caps text-label-caps uppercase tracking-[0.2em] shadow-sm hover:bg-surface-container-lowest hover:text-primary hover:shadow-[0_0_0_1px_#000000] active:scale-[0.99] transition-all duration-300" type="submit">
+                Masuk Sekarang
+              </button>
+            </div>
+          </form>
+
+          <!-- Quick Demo Login -->
+          <div class="mt-5">
+            <button id="btnQuickDemo" type="button" class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 border border-surface-container-high bg-surface-container-low text-on-surface font-label-caps text-label-caps uppercase tracking-[0.18em] hover:border-primary hover:bg-surface-container-lowest active:scale-[0.99] transition-all duration-300">
+              <span class="text-[14px] leading-none">⚡</span>
+              <span>Quick Login Demo</span>
+            </button>
+            <p class="mt-2 text-center font-label-meta text-label-meta tracking-[0.1em] text-on-surface-variant/80 uppercase">
+              Otomatis mengisi sinta@email.com / password123
+            </p>
+          </div>
+
+          <!-- Editorial Horizontal Divider with Tag -->
+          <div class="relative my-8 flex items-center justify-center">
+            <div class="w-full h-px bg-surface-container-high absolute left-0"></div>
+            <span class="relative z-10 bg-surface-container-lowest px-4 font-label-meta text-label-meta text-on-surface-variant tracking-[0.16em] uppercase">Belum punya Member ID?</span>
+          </div>
+
+          <!-- Secondary Action: Register -->
+          <div>
+            <a class="w-full inline-flex items-center justify-center py-4 px-8 bg-surface-container-low text-primary font-label-caps text-label-caps uppercase tracking-[0.2em] hover:bg-primary hover:text-on-primary active:scale-[0.99] transition-all duration-300" href="index.html?register=1">
+              Daftar Member Baru
+            </a>
+          </div>
+
+          <!-- Atelier Member Privileges List -->
+          <div class="mt-8 pt-6 bg-surface-container-low/50 -mx-8 -mb-8 sm:-mx-12 sm:-mb-12 p-6 flex items-center justify-between text-on-surface-variant">
+            <div class="flex items-center space-x-2">
+              <span class="material-symbols-outlined text-[15px]">diamond</span>
+              <span class="font-label-meta text-label-meta uppercase tracking-[0.12em]">Private Booking</span>
+            </div>
+            <span class="text-surface-container-high">•</span>
+            <div class="flex items-center space-x-2">
+              <span class="material-symbols-outlined text-[15px]">history_edu</span>
+              <span class="font-label-meta text-label-meta uppercase tracking-[0.12em]">Bespoke Archive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Micro-Badge -->
+        <div class="mt-6 flex items-center justify-center space-x-2 text-on-surface-variant opacity-75">
+          <span class="material-symbols-outlined text-[14px]">verified_user</span>
+          <span class="font-label-meta text-label-meta tracking-[0.14em] uppercase text-center">Terintegrasi dengan Sistem Keamanan Fascinosa Digital Member</span>
+        </div>
+
+        <!-- Archival Reference Notes -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <a href="#" data-demo="Protokol Privasi (demo)." class="font-label-meta text-label-meta text-on-surface-variant/80 hover:text-primary uppercase tracking-[0.18em] transition-colors">Protokol Privasi</a>
+          <span class="text-surface-container-high text-xs">•</span>
+          <a href="#" data-demo="Syarat Layanan (demo)." class="font-label-meta text-label-meta text-on-surface-variant/80 hover:text-primary uppercase tracking-[0.18em] transition-colors">Syarat Layanan</a>
+          <span class="text-surface-container-high text-xs">•</span>
+          <a href="#" data-demo="Concierge Bantuan (demo)." class="font-label-meta text-label-meta text-on-surface-variant/80 hover:text-primary uppercase tracking-[0.18em] transition-colors">Concierge Bantuan</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface py-space-lg">
+    <div class="w-full px-gutter-mobile md:px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant">
+      <div class="font-label-meta text-label-meta uppercase tracking-[0.14em]">© 2026 FASCINOSA HAUTE COUTURE. ALL RIGHTS RESERVED.</div>
+      <div class="font-label-meta text-label-meta uppercase tracking-[0.14em] flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[13px] text-on-surface-variant">lock</span>
+        ENCRYPTED CLIENT ENCLAVE • ARCHIVAL PRIVILEGE
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

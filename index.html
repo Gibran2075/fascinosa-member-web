@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FASCINOSA — Haute Édition &amp; Membership</title>
+  <meta name="description" content="Fascinosa — Maison de mode prêt-à-porter & haute couture. Bergabung menjadi member dan nikmati penawaran eksklusif, poin belanja, dan promo ulang tahun." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100..700,0..1,0" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#000000',
+              offwhite: '#F9F9F9',
+              white: '#FFFFFF',
+              surface: '#F4F4F4',
+              border: '#E5E5E5',
+              muted: '#737373',
+              darkgray: '#171717'
+            }
+          },
+          fontFamily: {
+            serif: ['"Bodoni Moda"', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/custom.css" />
+  <script>
+    // Set state navbar sebelum render (muncul tanpa flicker)
+    try {
+      if (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('fascinosa_session')) {
+        document.documentElement.classList.add('is-member');
+      }
+    } catch (e) { /* localStorage tidak tersedia */ }
+  </script>
+</head>
+
+<body class="bg-[#F9F9F9] text-black" data-page="index">
+
+  <!-- 1. NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-[#F9F9F9]/95 backdrop-blur-md border-b border-[#E5E5E5]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 h-20 flex items-center justify-between">
+      <!-- Left: Logo -->
+      <a href="index.html" class="font-editorial text-2xl md:text-3xl tracking-[0.22em] uppercase font-medium hover:opacity-80 transition-opacity">
+        FASCINOSA
+      </a>
+
+      <!-- Center Links -->
+      <nav class="hidden md:flex items-center gap-10">
+        <a href="#shop" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70 hover:text-black transition-colors">Shop</a>
+        <a href="#new-arrivals" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70 hover:text-black transition-colors">New Arrivals</a>
+        <a href="#about" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70 hover:text-black transition-colors">About</a>
+        <a href="#privileges" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70 hover:text-black transition-colors">Membership Benefit</a>
+      </nav>
+
+      <!-- Right: Actions -->
+      <div class="flex items-center gap-3 sm:gap-4 md:gap-6">
+        <button id="cartBtn" aria-label="Shopping Cart" class="relative text-black hover:opacity-70 transition-opacity p-1">
+          <span class="material-symbols-outlined text-[23px]">shopping_bag</span>
+          <span data-bind="cart-count" class="absolute -top-1 -right-1 w-4 h-4 bg-black text-white text-[9px] font-medium rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <!-- Jika BELUM login -->
+        <div data-auth-visible="guest" class="flex items-center gap-3 md:gap-4">
+          <a href="login.html" class="inline-flex items-center justify-center border border-black text-black text-[11px] uppercase tracking-[0.2em] font-medium px-3.5 py-2.5 sm:px-5 sm:py-3 hover:bg-black hover:text-white transition-all">
+            Masuk
+          </a>
+          <button data-open-register class="hidden sm:inline-flex items-center justify-center bg-black text-white text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3 hover:bg-[#1f1f1f] transition-all">
+            Daftar Member
+          </button>
+        </div>
+
+        <!-- Jika SUDAH login -->
+        <a data-auth-visible="member" href="member.html" class="hidden items-center gap-3 bg-black text-white text-[11px] uppercase tracking-[0.2em] font-medium px-3.5 py-2.5 sm:px-5 sm:py-3 hover:bg-[#1f1f1f] transition-all">
+          <span>Member Area (<span data-bind="member-id">MB-001234</span>)</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+
+        <!-- Mobile menu toggle -->
+        <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden p-1 text-black">
+          <span class="material-symbols-outlined text-[26px]">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-[#E5E5E5] bg-[#F9F9F9] px-6 py-5">
+      <nav class="flex flex-col gap-4">
+        <a href="#shop" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70">Shop</a>
+        <a href="#new-arrivals" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70">New Arrivals</a>
+        <a href="#about" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70">About</a>
+        <a href="#privileges" class="text-[12px] uppercase tracking-[0.18em] font-medium text-black/70">Membership Benefit</a>
+        <div data-auth-visible="guest" class="flex flex-col gap-3 pt-3 border-t border-[#E5E5E5]">
+          <a href="login.html" class="inline-flex items-center justify-center border border-black text-black text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3">Masuk / Login</a>
+          <button data-open-register class="inline-flex items-center justify-center bg-black text-white text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3">Daftar Member</button>
+        </div>
+        <a data-auth-visible="member" href="member.html" class="hidden mt-3 inline-flex items-center justify-center bg-black text-white text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3">
+          Member Area (<span data-bind="member-id">MB-001234</span>)
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="w-full">
+    <!-- 2. HERO SECTION -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-12 md:py-20 border-b border-[#E5E5E5]">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left Side: Copy & CTA -->
+        <div class="lg:col-span-6 flex flex-col justify-center pr-0 lg:pr-6">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-2 h-2 bg-black"></span>
+            <span class="text-[11px] uppercase tracking-[0.28em] text-[#737373] font-medium">
+              Membership Privilege — 2026 Edition
+            </span>
+          </div>
+          <h1 class="font-editorial text-4xl sm:text-5xl lg:text-[62px] leading-[1.08] tracking-[-0.01em] font-normal mb-8">
+            Elevate Your Style, Belong to Fascinosa Club.
+          </h1>
+          <p class="text-base md:text-lg text-[#525252] font-light leading-relaxed max-w-xl mb-10">
+            Bergabung menjadi member Fascinosa dan nikmati penawaran eksklusif, poin belanja, dan promo ulang tahun.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
+            <!-- CTA untuk tamu -->
+            <button data-auth-visible="guest" data-open-register class="inline-flex items-center justify-center gap-4 bg-black text-white text-[12px] uppercase tracking-[0.22em] font-medium px-9 py-4 hover:bg-[#262626] transition-all group">
+              <span>Daftar Member Sekarang</span>
+              <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </button>
+            <!-- CTA untuk member -->
+            <a data-auth-visible="member" href="member.html" class="hidden inline-flex items-center justify-center gap-4 bg-black text-white text-[12px] uppercase tracking-[0.22em] font-medium px-9 py-4 hover:bg-[#262626] transition-all group">
+              <span>Buka Member Area</span>
+              <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+            <a href="#privileges" class="inline-flex items-center justify-center text-[12px] uppercase tracking-[0.18em] text-black hover:text-[#737373] py-4 px-2 transition-colors">
+              Lihat Keuntungan ↓
+            </a>
+          </div>
+
+          <div class="pt-6 border-t border-[#E5E5E5] flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-[#737373]">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-black">check_circle</span>
+              <span>Instant Digital Access</span>
+            </div>
+            <span>•</span>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-black">check_circle</span>
+              <span>Zero Annual Fee</span>
+            </div>
+            <span>•</span>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-black">check_circle</span>
+              <span>Curated Rewards</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: High quality fashion model image -->
+        <div class="lg:col-span-6">
+          <div class="relative w-full aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] group shadow-sm">
+            <img
+              alt="High-fashion model posing in architectural editorial silhouette"
+              class="w-full h-full object-cover object-center editorial-img"
+              loading="eager"
+              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.22em] text-black font-medium">Lookbook No. 04 / Autumn Capsule</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WHY JOIN FASCINOSA MEMBER? -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 border-b border-[#E5E5E5]" id="privileges">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-[11px] uppercase tracking-[0.3em] text-[#737373] font-medium block mb-3">The Privileges</span>
+        <h2 class="font-editorial text-3xl sm:text-4xl lg:text-[42px] leading-tight font-normal">Why Join Fascinosa Member?</h2>
+        <div class="w-12 h-[1px] bg-black mx-auto mt-5"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 border border-[#E5E5E5] bg-white divide-y md:divide-y-0 md:divide-x divide-[#E5E5E5]">
+        <!-- Card 1 -->
+        <div class="p-8 lg:p-12 flex flex-col justify-between hover:bg-[#F9F9F9] transition-colors">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-[#737373]">01 / Benefit</span>
+              <div class="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center bg-white shadow-sm">
+                <span class="material-symbols-outlined text-[22px] text-black">monetization_on</span>
+              </div>
+            </div>
+            <h3 class="font-editorial text-2xl font-normal mb-3 text-black">Poin Diskon Belanja</h3>
+            <p class="text-[14px] text-[#525252] leading-relaxed font-light mb-8">Kumpulkan poin di setiap transaksi dan tukarkan diskon.</p>
+          </div>
+          <div>
+            <span class="inline-block bg-[#F4F4F4] border border-[#E5E5E5] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-black font-medium">10 Poin = Rp 10.000 Diskon</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-8 lg:p-12 flex flex-col justify-between hover:bg-[#F9F9F9] transition-colors">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-[#737373]">02 / Benefit</span>
+              <div class="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center bg-white shadow-sm">
+                <span class="material-symbols-outlined text-[22px] text-black">featured_seasonal_and_gifts</span>
+              </div>
+            </div>
+            <h3 class="font-editorial text-2xl font-normal mb-3 text-black">Hadiah Ulang Tahun</h3>
+            <p class="text-[14px] text-[#525252] leading-relaxed font-light mb-8">Special voucher eksklusif di hari ulang tahunmu.</p>
+          </div>
+          <div>
+            <span class="inline-block bg-[#F4F4F4] border border-[#E5E5E5] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-black font-medium">Voucher s/d Rp 250.000</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-8 lg:p-12 flex flex-col justify-between hover:bg-[#F9F9F9] transition-colors">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-[#737373]">03 / Benefit</span>
+              <div class="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center bg-white shadow-sm">
+                <span class="material-symbols-outlined text-[22px] text-black">lock_open</span>
+              </div>
+            </div>
+            <h3 class="font-editorial text-2xl font-normal mb-3 text-black">Akses Promo Duluan</h3>
+            <p class="text-[14px] text-[#525252] leading-relaxed font-light mb-8">Dapatkan info koleksi terbaru &amp; promo khusus member.</p>
+          </div>
+          <div>
+            <span class="inline-block bg-[#F4F4F4] border border-[#E5E5E5] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-black font-medium">48 Jam Akses Prioritas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. KOLEKSI FAVORIT MEMBER (dengan filter tab) -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 border-b border-[#E5E5E5]" id="shop">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+        <div>
+          <span class="text-[11px] uppercase tracking-[0.3em] text-[#737373] font-medium block mb-2">Curated Essentials</span>
+          <h2 class="font-editorial text-3xl sm:text-4xl lg:text-[42px] font-normal leading-tight">Koleksi Favorit Member</h2>
+        </div>
+        <p class="text-[14px] text-[#525252] max-w-md font-light leading-relaxed">
+          Pilihan terbaik yang paling banyak diminati oleh komunitas member Fascinosa musim ini.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div id="filterTabs" class="flex flex-wrap items-center gap-3 mb-10">
+        <button data-filter="all" class="filter-tab is-active border border-black px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-medium">All</button>
+        <button data-filter="dress" class="filter-tab border border-[#E5E5E5] px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-medium text-black/70 hover:border-black hover:text-black transition-colors">Dress</button>
+        <button data-filter="tops" class="filter-tab border border-[#E5E5E5] px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-medium text-black/70 hover:border-black hover:text-black transition-colors">Tops</button>
+        <button data-filter="accessories" class="filter-tab border border-[#E5E5E5] px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-medium text-black/70 hover:border-black hover:text-black transition-colors">Accessories</button>
+        <span class="ml-auto text-[11px] uppercase tracking-[0.16em] text-[#737373]">Klik produk untuk menambah ke keranjang demo</span>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Product 1 : Tops -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="tops" data-name="Cashmere Knit Poncho">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Cashmere Knit Poncho on hanger in studio light" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Member Fav</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Cashmere Knit Poncho</h3>
+            <span class="text-[14px] font-medium text-black">Rp 459.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Knitwear • Pure Cashmere</span>
+        </article>
+
+        <!-- Product 2 : Dress -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="dress" data-name="Azure Satin Maxi">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Azure Satin Maxi Dress styled with clean silhouette" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Exclusive</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Azure Satin Maxi</h3>
+            <span class="text-[14px] font-medium text-black">Rp 629.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Occasion • Bias Cut</span>
+        </article>
+
+        <!-- Product 3 : Accessories -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="accessories" data-name="Leather Tote Bag">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Structured luxury Leather Tote Bag studio product photo" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Signature</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Leather Tote Bag</h3>
+            <span class="text-[14px] font-medium text-black">Rp 289.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Leather Goods • Italian Calf</span>
+        </article>
+
+        <!-- Product 4 : Accessories -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="accessories" data-name="Strappy Classic Heels">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Strappy Classic Heels editorial footwear styling" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">New</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Strappy Classic Heels</h3>
+            <span class="text-[14px] font-medium text-black">Rp 429.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Footwear • 75mm Heel</span>
+        </article>
+
+        <!-- Product 5 : Dress -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="dress" data-name="Crimson Satin Gown">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Crimson Satin Gown editorial studio shot" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Limited</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Crimson Satin Gown</h3>
+            <span class="text-[14px] font-medium text-black">Rp 749.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Evening • Silk Satin</span>
+        </article>
+
+        <!-- Product 6 : Tops -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="tops" data-name="Off-Shoulder Blouse">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Off-Shoulder Blouse minimal editorial" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Member Fav</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Off-Shoulder Blouse</h3>
+            <span class="text-[14px] font-medium text-black">Rp 329.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Jersey • Fitted Cut</span>
+        </article>
+
+        <!-- Product 7 : Accessories -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="accessories" data-name="Delicate Gold Necklace">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Delicate gold necklace editorial still life" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">Atelier</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Delicate Gold Necklace</h3>
+            <span class="text-[14px] font-medium text-black">Rp 259.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Jewelry • Gold Vermeil</span>
+        </article>
+
+        <!-- Product 8 : Dress -->
+        <article class="product-card group flex flex-col cursor-pointer" data-category="dress" data-name="Ruby Floral Midi">
+          <div class="relative aspect-[3/4] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] mb-4">
+            <img alt="Ruby Floral Midi Dress on model" class="w-full h-full object-cover object-center editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div class="absolute top-3 left-3 bg-white px-2.5 py-1 border border-[#E5E5E5]">
+              <span class="text-[10px] uppercase tracking-[0.2em] font-medium text-black">New</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline pt-1">
+            <h3 class="font-editorial text-lg font-normal text-black group-hover:opacity-70 transition-opacity">Ruby Floral Midi</h3>
+            <span class="text-[14px] font-medium text-black">Rp 549.000</span>
+          </div>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Daywear • Cotton Silk</span>
+        </article>
+      </div>
+
+      <!-- Empty filter state -->
+      <div id="emptyFilter" class="hidden mt-12 text-center py-12 border border-dashed border-[#E5E5E5] bg-white">
+        <p class="font-editorial text-xl text-black">Belum ada produk pada kategori ini.</p>
+        <p class="text-[13px] text-[#737373] mt-2">Coba pilih kategori lainnya.</p>
+      </div>
+
+      <!-- Bottom CTA Button -->
+      <div class="mt-16 flex justify-center">
+        <a href="#shop" data-demo="Katalog lengkap akan tersedia pada versi produksi." class="inline-flex items-center gap-3 border border-black px-10 py-4 text-[12px] uppercase tracking-[0.24em] font-medium text-black hover:bg-black hover:text-white transition-all group">
+          <span>Lihat Semua Koleksi</span>
+          <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. CUSTOMER TESTIMONIAL -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 border-b border-[#E5E5E5]" id="new-arrivals">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-[11px] uppercase tracking-[0.3em] text-[#737373] font-medium block mb-3">Voices of the Club</span>
+        <h2 class="font-editorial text-3xl sm:text-4xl lg:text-[42px] font-normal leading-tight">Cerita &amp; Pengalaman Member Fascinosa</h2>
+        <div class="w-12 h-[1px] bg-black mx-auto mt-5"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 border border-[#E5E5E5] bg-white divide-y md:divide-y-0 md:divide-x divide-[#E5E5E5]">
+        <!-- Left Testimonial -->
+        <div class="p-8 md:p-12 lg:p-14 flex flex-col justify-between hover:bg-[#F9F9F9] transition-colors">
+          <div>
+            <div class="flex items-center gap-1.5 text-black mb-6">
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            </div>
+            <blockquote class="font-editorial text-xl sm:text-2xl text-black leading-snug font-normal mb-8">
+              “Daftar membernya cepat banget tanpa kartu fisik. Diskon poinnya terasa banget!”
+            </blockquote>
+          </div>
+          <div class="flex items-center gap-4 pt-6 border-t border-[#E5E5E5]">
+            <img alt="Portrait of Amanda R." class="w-12 h-12 rounded-full object-cover object-center border border-[#E5E5E5]"
+              src="https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=160&h=160&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div>
+              <p class="text-[14px] font-medium text-black">Amanda R.</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[#737373]">Verified Member • 5 Stars</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Testimonial -->
+        <div class="p-8 md:p-12 lg:p-14 flex flex-col justify-between hover:bg-[#F9F9F9] transition-colors">
+          <div>
+            <div class="flex items-center gap-1.5 text-black mb-6">
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            </div>
+            <blockquote class="font-editorial text-xl sm:text-2xl text-black leading-snug font-normal mb-8">
+              “Koleksinya selalu up to date dan promo ultahnya beneran dapet voucher.”
+            </blockquote>
+          </div>
+          <div class="flex items-center gap-4 pt-6 border-t border-[#E5E5E5]">
+            <img alt="Portrait of Clarissa T." class="w-12 h-12 rounded-full object-cover object-center border border-[#E5E5E5]"
+              src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=120&h=120&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+            <div>
+              <p class="text-[14px] font-medium text-black">Clarissa T.</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[#737373]">Verified Member • 5 Stars</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. BANNER CTA MEMBERSHIP -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 border-b border-[#E5E5E5]" id="membership-cta">
+      <div class="bg-black text-white p-10 md:p-16 lg:p-20 relative overflow-hidden">
+        <div class="absolute -right-24 -bottom-24 w-96 h-96 rounded-full border border-white/10 pointer-events-none"></div>
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <!-- Left Text -->
+          <div class="lg:col-span-7">
+            <span class="text-[11px] uppercase tracking-[0.3em] text-[#A3A3A3] font-medium block mb-4">Join The Inner Circle</span>
+            <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] mb-5">Siap Menjadi Bagian dari Fascinosa Club?</h2>
+            <p class="text-[15px] sm:text-[16px] text-[#A3A3A3] font-light leading-relaxed max-w-xl">
+              Daftar dalam 1 menit dan dapatkan Member ID digital kamu sekarang.
+            </p>
+          </div>
+
+          <!-- Right Buttons -->
+          <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch gap-4 justify-end">
+            <!-- Guest -->
+            <a data-auth-visible="guest" href="login.html" class="inline-flex items-center justify-center border border-white text-white text-[12px] uppercase tracking-[0.2em] font-medium px-8 py-4 hover:bg-white hover:text-black transition-all">
+              Masuk / Login Member
+            </a>
+            <button data-auth-visible="guest" data-open-register class="inline-flex items-center justify-center bg-white text-black text-[12px] uppercase tracking-[0.2em] font-medium px-8 py-4 hover:bg-[#E5E5E5] transition-all">
+              Daftar Akun Baru
+            </button>
+            <!-- Member -->
+            <a data-auth-visible="member" href="member.html" class="hidden inline-flex items-center justify-center bg-white text-black text-[12px] uppercase tracking-[0.2em] font-medium px-8 py-4 hover:bg-[#E5E5E5] transition-all">
+              Buka Member Area
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ABOUT (ringkas) -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 border-b border-[#E5E5E5]" id="about">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <div class="relative w-full aspect-[4/3] overflow-hidden bg-[#ECECEC] border border-[#E5E5E5] group">
+            <img alt="Fascinosa atelier interior" class="w-full h-full object-cover editorial-img" loading="lazy"
+              src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=900&q=80&auto=format&fit=crop"
+              onerror="this.onerror=null;this.src='https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg';" />
+          </div>
+        </div>
+        <div class="lg:col-span-7">
+          <span class="text-[11px] uppercase tracking-[0.3em] text-[#737373] font-medium block mb-4">The Maison</span>
+          <h2 class="font-editorial text-3xl sm:text-4xl lg:text-[42px] font-normal leading-tight mb-6">Tentang Fascinosa</h2>
+          <p class="text-[15px] text-[#525252] font-light leading-relaxed mb-5 max-w-2xl">
+            Fascinosa adalah maison de mode prêt-à-porter &amp; haute couture yang berdedikasi pada elegan understated,
+            tailoring presisi, dan kurasi privilese member. Setiap koleksi dirancang di atelier Jakarta dan
+            dihadirkan lewat program membership digital tanpa kartu fisik.
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-[#E5E5E5]">
+            <div>
+              <p class="font-editorial text-3xl">2014</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Berdiri di Jakarta</p>
+            </div>
+            <div>
+              <p class="font-editorial text-3xl">12.4K</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Member Aktif</p>
+            </div>
+            <div>
+              <p class="font-editorial text-3xl">3</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[#737373] mt-1">Flagship Boutique</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. FOOTER -->
+  <footer class="bg-white" id="contact">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-12 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[#E5E5E5]">
+        <div class="md:col-span-5">
+          <a href="index.html" class="font-editorial text-2xl tracking-[0.22em] uppercase font-medium block mb-4">FASCINOSA</a>
+          <p class="text-[13px] text-[#737373] font-light max-w-sm leading-relaxed">
+            Maison de mode prêt-à-porter &amp; haute couture. Dedicated to understated elegance, precise tailoring, and curated member privileges.
+          </p>
+        </div>
+
+        <div class="md:col-span-4 flex items-start gap-12 sm:gap-16">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.24em] text-[#737373] block mb-4 font-medium">Explore</span>
+            <ul class="space-y-3">
+              <li><a class="text-[13px] text-black hover:text-[#737373] transition-colors" href="#shop">Shop</a></li>
+              <li><a class="text-[13px] text-black hover:text-[#737373] transition-colors" href="#about">About Us</a></li>
+              <li><a class="text-[13px] text-black hover:text-[#737373] transition-colors" href="login.html">Member Login</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.24em] text-[#737373] block mb-4 font-medium">Legal &amp; Care</span>
+            <ul class="space-y-3">
+              <li><a class="text-[13px] text-black hover:text-[#737373] transition-colors" href="#" data-demo="Halaman Privacy Policy belum tersedia pada demo ini.">Privacy Policy</a></li>
+              <li><a class="text-[13px] text-black hover:text-[#737373] transition-colors" href="#" data-demo="Concierge kami akan menghubungi kamu (demo).">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col md:items-end">
+          <span class="text-[10px] uppercase tracking-[0.24em] text-[#737373] block mb-4 font-medium">Follow Atelier</span>
+          <div class="flex items-center gap-4 text-black">
+            <a href="#" aria-label="Instagram" data-demo="Instagram Fascinosa (demo)" class="w-9 h-9 rounded-full border border-[#E5E5E5] flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all">
+              <span class="text-[11px] font-semibold tracking-tighter">IG</span>
+            </a>
+            <a href="#" aria-label="TikTok" data-demo="TikTok Fascinosa (demo)" class="w-9 h-9 rounded-full border border-[#E5E5E5] flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all">
+              <span class="text-[11px] font-semibold tracking-tighter">TT</span>
+            </a>
+            <a href="#" aria-label="Pinterest" data-demo="Pinterest Fascinosa (demo)" class="w-9 h-9 rounded-full border border-[#E5E5E5] flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all">
+              <span class="text-[11px] font-semibold tracking-tighter">PT</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#737373]">
+        <p>© 2026 Fascinosa. All rights reserved.</p>
+        <p class="text-[11px] uppercase tracking-[0.2em]">Monochrome Editorial Edition</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 9. MODAL REGISTRASI DUMMY -->
+  <div class="modal-overlay" id="registerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" data-close-modal></div>
+    <div class="relative z-10 min-h-full flex items-center justify-center p-4">
+      <div class="modal-panel modal-scroll w-full max-w-[440px] bg-white border border-[#E5E5E5] shadow-2xl">
+        <!-- Header -->
+        <div class="flex items-start justify-between px-7 pt-7 pb-5 border-b border-[#E5E5E5]">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.28em] text-[#737373] block mb-2">Membership Registration</span>
+            <h3 id="registerTitle" class="font-editorial text-2xl text-black">Daftar Member Fascinosa</h3>
+          </div>
+          <button data-close-modal aria-label="Tutup" class="text-[#737373] hover:text-black transition-colors p-1 -mt-1 -mr-1">
+            <span class="material-symbols-outlined text-[22px]">close</span>
+          </button>
+        </div>
+
+        <!-- Form -->
+        <form id="registerForm" class="px-7 py-6 space-y-4" novalidate>
+          <div>
+            <label for="regName" class="block text-[10px] uppercase tracking-[0.18em] font-medium text-black mb-2">Nama Lengkap</label>
+            <input id="regName" name="name" type="text" required placeholder="Contoh: Sinta Putri" class="fsc-field" />
+          </div>
+          <div>
+            <label for="regPhone" class="block text-[10px] uppercase tracking-[0.18em] font-medium text-black mb-2">No. Handphone</label>
+            <input id="regPhone" name="phone" type="tel" required placeholder="Contoh: 081234567890" class="fsc-field" />
+          </div>
+          <div>
+            <label for="regEmail" class="block text-[10px] uppercase tracking-[0.18em] font-medium text-black mb-2">Email</label>
+            <input id="regEmail" name="email" type="email" required placeholder="nama@email.com" class="fsc-field" />
+          </div>
+          <div>
+            <label for="regPassword" class="block text-[10px] uppercase tracking-[0.18em] font-medium text-black mb-2">Password</label>
+            <input id="regPassword" name="password" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="fsc-field" />
+          </div>
+
+          <button type="submit" class="w-full bg-black text-white py-4 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-[#262626] active:scale-[0.99] transition-all">
+            Daftar Sekarang
+          </button>
+
+          <p class="text-[11px] leading-relaxed text-[#737373] text-center">
+            Member ID akan digenerate otomatis. Ini adalah prototype dummy — data hanya tersimpan di browser kamu.
+          </p>
+        </form>
+
+        <!-- Footer -->
+        <div class="px-7 py-4 border-t border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-between">
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#737373]">Sudah punya Member ID?</span>
+          <a href="login.html" class="text-[11px] uppercase tracking-[0.16em] font-medium text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity">Login di sini</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Mobile menu toggle (landing page)
+    (function () {
+      var btn = document.getElementById('mobileMenuBtn');
+      var menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function () {
+          menu.classList.toggle('hidden');
+        });
+        menu.addEventListener('click', function (e) {
+          if (e.target.tagName === 'A') menu.classList.add('hidden');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
