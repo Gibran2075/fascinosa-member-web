@@ -11,15 +11,34 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: #f9f9f9;
   color: #000000;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---- Editorial helpers (landing page) ---- */
+/* ---- Editorial helpers (landing page) — headings / judul / brand ---- */
 .font-editorial {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Semua judul (h1–h4) memakai Playfair Display;
+   utility class tetap menang bila ada konflik. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Body text, nav, input & button memakai Plus Jakarta Sans */
+body,
+nav a,
+button,
+input,
+select,
+textarea {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 .hairline-border {
